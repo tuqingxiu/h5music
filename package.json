@@ -10,8 +10,19 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "lyric-parser": "^1.0.1",
+    "fastclick": "^1.0.6",
+    "flex.css": "^1.1.7",
+    "iscroll": "^5.2.0",
+    "jquery": "^3.4.1",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "mint-ui": "^2.2.13",
+    "moment": "^2.24.0",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-aplayer": "^1.6.1",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
