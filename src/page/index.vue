@@ -227,11 +227,12 @@ export default {
       },
       //数据监听http://127.0.0.1:9089/baseController/addMonitor
       addMonitor(type){
-        Tool.post('baseController/addMonitor',{
-          monitorCode: type||'1006',
-          musicName: this.currentMusic.musicName,
-          playTime: this.audio.currentTime
-        },data=>{
+        let data = {
+          "monitorCode": type||'1006',
+          "musicName": this.currentMusic.musicName,
+          "playTime": this.audio.currentTime
+        }
+        Tool.post('baseController/addMonitor',JSON.stringify(data),data=>{
           console.log(data)
         })
       },

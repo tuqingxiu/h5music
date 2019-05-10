@@ -63,8 +63,10 @@ Tool.ajax = function(mySetting) {
       };
       xhr.send();
     } else {
+      //该项目的post参数用的ajax raw方式，需要data参数对象序列化
       xhr.open(setting.type, setting.url, setting.async);
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=UTF-8");
+      // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=UTF-8");
+      xhr.setRequestHeader("Content-type", "application/json");
       xhr.timeout = setting.timeout;
       xhr.ontimeout = () => {
         this.explain = "timeout";
@@ -75,6 +77,7 @@ Tool.ajax = function(mySetting) {
       xhr.onabort = () => {
         xhr.explain = "abort";
       };
+      sData = setting.data
       xhr.send(sData);
     }
     requestPool.push(xhr);
