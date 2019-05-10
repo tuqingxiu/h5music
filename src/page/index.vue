@@ -328,7 +328,6 @@ export default {
       },
       //下一首
       next(){
-        console.log('index============',this.currentIndex)
         this.addMonitor('1003')
         let lastIndex = this.musicList.length-1;
         if(this.currentIndex<lastIndex){
@@ -443,20 +442,6 @@ export default {
   z-index: -1;
 }
 
-// .logo-box{
-//   -webkit-animation:haha1 .8s linear infinite;
-// }
-// @-webkit-keyframes logoRotate{
-//   0%{-webkit-transform:rotate(0deg);}
- 
-// 		25%{-webkit-transform:rotate(90deg);}
- 
-// 		50%{-webkit-transform:rotate(180deg);}
- 
-// 		75%{-webkit-transform:rotate(270deg);}
- 
-// 		100%{-webkit-transform:rotate(360deg);}
-// }
 .logo-box{
   -webkit-transition-property: -webkit-transform;
     -webkit-transition-duration: 1s;
