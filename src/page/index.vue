@@ -417,7 +417,7 @@ export default {
 }
 .content{
     width: 100%;
-    // height: 75%;
+    height: 75%;
     padding-top: .65rem;
     .logo-wrapper{
       width: 100%;
