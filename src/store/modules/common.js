@@ -2,20 +2,16 @@
  * 各种状态管理
  */
 const state = {
-    isLogin: false,//是否登录
-    showLogin: false,//是否显示登录
-    showDownLoad: false,//循环弹窗
+    showMusicList: false,//歌曲列表显示状态
+    selectMusic: {},//列表中选中的播放音乐
 };
 
 const mutations = {
-    SHOW_LOGIN: function(state){
-        state.showLogin = !state.showLogin;
+    SHOW_MUSIC_LIST: function(state,bool){
+        state.showMusicList = bool;
     },
-    IS_LOGIN: function(state,bool){
-        state.isLogin = bool;
-    },
-    SHOW_DOWNLOAD: function(state,bool){
-        state.showDownLoad = bool;
+    SELECT_MUSIC: function(state,val){
+        state.selectMusic = val
     }
 };
 

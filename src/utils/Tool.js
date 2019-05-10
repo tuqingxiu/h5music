@@ -5,7 +5,7 @@ import { Indicator, Toast } from "mint-ui";
 
 const Tool = {};
 
-const target = "";
+const target = "http://10.0.221.76:9089/";
 
 const CLOSE_NETWORK = false; //在本地调试时关闭网络，只调整静态页面
 var requestPool = []; //请求池
@@ -194,6 +194,20 @@ Tool.post = function(pathname, data, success, error) {
 Tool.get = function(pathname, data, success, setting, error) {
   var setting = {
     url: target + pathname, //默认ajax请求地址
+    type: "GET", //请求的方式
+    data: data, //发给服务器的数据
+    success: success || function() {}, //请求成功执行方法
+    error: error || function() {}, //请求失败执行方法
+    ...setting //加载自定义的配置，如是否启用mask
+  };
+  return Tool.ajax(setting);
+};
+/**
+ * 不拼接地址，直接访问传来的地址
+ */
+Tool.getAbsolute = function(pathname, data, success, setting, error) {
+  var setting = {
+    url: pathname, //默认ajax请求地址
     type: "GET", //请求的方式
     data: data, //发给服务器的数据
     success: success || function() {}, //请求成功执行方法
