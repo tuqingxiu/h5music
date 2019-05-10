@@ -58,7 +58,7 @@
         </div>
         <mt-popup
           v-model="popupVisible"
-          position="bottom"
+          position="right"
           class="music-list"
           >
           <MusicList :bgUrl="bgUrl" :list="musicList" :currentId="currentMusic.musicId"></MusicList>
@@ -350,7 +350,6 @@ export default {
 .music-list{
   width: 100%;
   height: 100%;
-  max-width: 800px;
 }
 .container{
     overflow-x: hidden;
