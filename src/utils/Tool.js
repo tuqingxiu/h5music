@@ -5,7 +5,11 @@ import { Indicator, Toast } from "mint-ui";
 
 const Tool = {};
 
-const target = "http://10.0.221.76:9089/";
+// const target = "http://10.0.221.76:9089/";baseController/
+//https://incallapi.changan.com.cn/opact/getMusicList
+// const target = process.env.API + 'opact/';
+const target = process.env.API + 'baseController/';
+// console.log(target)
 
 const CLOSE_NETWORK = false; //在本地调试时关闭网络，只调整静态页面
 var requestPool = []; //请求池
@@ -183,7 +187,8 @@ Tool.post = function(pathname, data, success, error) {
     type: "POST", //请求的方式
     data: data, //发给服务器的数据
     success: success,
-    error: error
+    error: error,
+    mask: false
   };
   return Tool.ajax(setting);
 };

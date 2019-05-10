@@ -1,19 +1,23 @@
 <template>
-    <div class="container" flex="dir:top main:justify">
+    <div class="container" flex="dir:top main:center">
         <div class="bg-blur" :style="`background-image:url(${bgUrl})`"></div>
         <div class="title">
-            <img @click="closePage" src="../image/close.png" />
+            <img class="back-icon" v-if="defaultIndex === 1" @click="toggleSwipe(0,$event)" src="../image/back.png" />
+            <img v-else @click="closePage" src="../image/close.png" />
             <div class="name">{{currentMusic.musicName}}</div>
         </div>
-        <div class="content">
-            <mt-swipe :auto="0" ref="swipe" :defaultIndex="defaultIndex">
+        <div class="content" flex-box="1">
+            <mt-swipe :auto="0" ref="swipe" 
+            :defaultIndex="defaultIndex" 
+            @change="handleChange"
+            :showIndicators="false">
                 <mt-swipe-item>
                   <div class="logo-wrapper" flex="main:center cross:center">
-                    <div class="logo-box">
-                      <img class="logo" :src="currentMusic.coverUrl" />
+                    <div class="logo-box" :class="{'active': audio.playing}">
+                      <img class="logo" :src="logoUrl" :onerror="logoUrl" />
                     </div>
                   </div>
-                  <img class="lrc-icon" @click="goLrc" src="../image/lrc.png" />
+                  <img class="lrc-icon" @click="toggleSwipe(1,$event)" src="../image/lrc.png" />
                 </mt-swipe-item>
                 <mt-swipe-item>
                   <LrcList :lrc="currentMusic.lrc" :playing="audio.playing" :currentTime="currentTime"></LrcList>
@@ -31,22 +35,15 @@
                 @loadedmetadata="onLoadedmetadata"
                 ></audio>
             <div class="audio-box">
-                <div class="progress-box">
-                    <mt-range
-                    ref="range"
-                    v-model="rangeValue"
-                    :min="0"
-                    :max="audio.maxTime"
-                    :step="1"
-                    :bar-height="5"
-                    @touchend = "progressTouchEnd"
-                    >
-                        <div slot="start">{{audio.currentTime|timeFilter}}</div>
-                        <div slot="end">{{audio.maxTime|timeFilter}}</div>
-                    </mt-range>
+                <div class="progress-wrapper" flex="dir:left main:justify cross:center">
+                    <span class="time time-l">{{audio.currentTime|timeFilter}}</span>
+                    <div class="progress-bar-wrapper" flex-box="1">
+                      <ProgressBar :percent="percent" @percentChange="setProgress"></ProgressBar>
+                    </div>
+                    <span class="time time-r">{{audio.maxTime|timeFilter}}</span>
                 </div>
                 <div class="btn-box" flex="main:justify cross:center">
-                  <img @click="addMonitor('1006',$event)" src="../image/zan.png" />
+                  <img @click="addMonitor('1006',$event)" :src="zanicon" />
                   <div class="play-box" flex="main:justify cross:center">
                     <img @click="prev" src="../image/prev.png" />
                     <img class="play-btn" @click="togglePlaying" :src="playicon" />
@@ -67,8 +64,8 @@
 </template>
 <script>
 /**
- * 1001打开小精灵，1002播放时长，1003下一首，1004上一首，1005关闭小精灵
- * 1006点赞，1007播放列表，1008拖拽进度条，1009查看歌词，1010从歌词返回
+ * 1001打开小精灵，1002播放时长，1003下一首*，1004上一首*，1005关闭小精灵
+ * 1006点赞*，1007播放列表，1008拖拽进度条，1009查看歌词，1010从歌词返回
  * 1011分享次数，1012分享成功
  */
 import {mapState, mapMutations} from "vuex";
@@ -79,14 +76,19 @@ import Tool from "../utils/Tool";
 import Lyric from 'lyric-parser';
 import LrcList from "../components/LrcList";
 import MusicList from "../components/MusicList";
+import ProgressBar from "../components/ProgressBar";
 
 import pauseImg from "../image/pause.png";
 import playImg from "../image/play.png";
 import bgImg from "../image/bgImg.png";
+import zanImg from "../image/zan.png";
+import zanedImg from "../image/zaned.png";
+import logoImg from "../image/logo.png";
 export default {
     components: {
       LrcList,
-      MusicList
+      MusicList,
+      ProgressBar
     },
     data() {
         return {
@@ -103,8 +105,8 @@ export default {
               waiting: true,
               preload: 'auto'
           },
-          rangeValue: 0,
           currentMusic: {
+            isZan: false,//默认未点赞
             musicId: '',
             lrcObj: {},//解析后的歌词对象
             lrc: '',//接口获取到的歌词
@@ -116,18 +118,6 @@ export default {
         }
     },
     watch: {
-      rangeValue(val){
-        this.$refs.audio.currentTime = val
-        // this.$refs.audio.play()
-        // this.$nextTick(()=>{
-        //   if(this.audio.currentTime === this.audio.maxTime) return
-        //   if(val<this.audio.maxTime){
-        //     this.$refs.audio.currentTime = val
-        //   }else{
-        //     this.audio.currentTime = val;
-        //   }
-        // })
-      },
       //监听歌曲列表
       musicList(val){
         if(val[0]){
@@ -140,11 +130,15 @@ export default {
       },
       //选中的歌曲,歌曲变化时
       selectMusic(val){
-        console.log('改变')
-        Object.assign(this.currentMusic,val)
+        Object.assign(this.currentMusic,{
+          isZan: false,
+          musicId: '',
+          lrcObj: {},
+          lrc: '',
+        },val)
         //暂停歌曲
         this.audio.playing = false
-        this.rangeValue = 0
+        this.audio.currentTime = 0
         //
         this.$nextTick(()=>{
           this.getLyric()
@@ -154,7 +148,6 @@ export default {
       //监听当前播放时间，判断当前歌曲是否播放完毕
       currentTime(val){
         if(val/1000 >= this.audio.maxTime-1){
-          console.log('播放完毕')
           this.next()
         }
       }
@@ -170,6 +163,9 @@ export default {
           showMusicList: ({common}) => common.showMusicList,
           selectMusic: ({common}) => common.selectMusic,
       }),
+      logoUrl: function(){
+        return this.currentMusic.coverUrl || logoImg
+      },
       currentTime: function(){
         return this.audio.currentTime*1000
       },
@@ -178,6 +174,13 @@ export default {
           return pauseImg
         }else{
           return playImg
+        }
+      },
+      zanicon: function(){
+        if(this.currentMusic.isZan){
+          return zanedImg
+        }else{
+          return zanImg
         }
       },
       bgUrl: function(){
@@ -190,10 +193,15 @@ export default {
           return item.musicId === this.currentMusic.musicId
         })
         return index;
+      },
+      //进度条百分比
+      percent() {
+        return Math.min(1, this.audio.currentTime / this.audio.maxTime)
       }
     },
     created(){
-      // this.getLyric()
+      //进入该页面
+      this.addMonitor('1001')
       //获取歌曲列表
       this.getMusicList()
     },
@@ -205,20 +213,16 @@ export default {
       //获取歌曲列表
       getMusicList(){
         let self = this;
-        Tool.get('baseController/getMusicList',{},data=>{
+        // self.musicList = [{
+        //   musicName: '1212',//歌名
+        //   musicUrl: '',//歌曲链接
+        //   lrcurl: '',//歌词链接
+        //   coverUrl: ''//logo地址
+        // }]
+        Tool.get('getMusicList',{},data=>{
           if(data.musicList){
-            // self.musicList = data.musicList
-            data.musicList[0].musicId = '0'
-            data.musicList[3].musicId = '1'
-            data.musicList[1].musicId = '2'
-            data.musicList[2].musicId = '3'
-            
-            data.musicList[0].musicName = '0000'
-            data.musicList[3].musicName = '1111'
-            data.musicList[1].musicName = '2222'
-            data.musicList[2].musicName = '3333'
-            
-            self.musicList = [data.musicList[0],data.musicList[3],data.musicList[1],data.musicList[2]]
+            self.musicList = data.musicList
+            data.musicList[0].lrcurl = ''
           }
           if(data.backGroundList){
             self.backGroundList = data.backGroundList
@@ -227,28 +231,49 @@ export default {
       },
       //数据监听http://127.0.0.1:9089/baseController/addMonitor
       addMonitor(type){
+        let self = this
+        if(type === '1006' && this.currentMusic.isZan){
+          console.log('已经点赞了')
+          return
+        }
+        if(!this.currentMusic.musicId && type !=='1001'){
+          return
+        }
         let data = {
           "monitorCode": type||'1006',
           "musicName": this.currentMusic.musicName,
           "playTime": this.audio.currentTime
         }
-        Tool.post('baseController/addMonitor',JSON.stringify(data),data=>{
-          console.log(data)
+        Tool.post('addMonitor',JSON.stringify(data),data=>{
+          if(data === 'ok' && type === '1006'){
+            //点赞成功
+            self.musicList[self.currentIndex].isZan = true
+            self.currentMusic.isZan = true;
+          }
+          console.log(type+data)
         })
       },
       //显示列表
       showMore(){
         this.setVisible(true);
+        //播放列表
+        this.addMonitor('1007');
       },
-      //跳转到词页面
-      goLrc(){
-        this.defaultIndex = 1
+      //跳转到词页面,返回  0返回，1到词页面
+      toggleSwipe(type,e){
+        if(type === 0){
+          this.addMonitor('1010')
+        }else{
+          this.addMonitor('1009')
+        }
+        this.defaultIndex = type
         let swipe = this.$refs.swipe
         swipe.swipeItemCreated()
       },
-      //放开进度条
-      progressTouchEnd(){
-        console.log('--------------touchend')
+      //进度条
+      setProgress(val){
+        this.$refs.audio.currentTime = val*this.audio.maxTime;
+        this.addMonitor('1008')
       },
       //手动播放、暂停
       togglePlaying(){
@@ -274,7 +299,6 @@ export default {
       },
       // 当音频开始播放
       onPlay (res) {
-        // console.log(res)
         this.audio.playing = true
         this.audio.loading = false
 
@@ -306,6 +330,7 @@ export default {
       },
       getLyric(){
         let url = this.currentMusic.lrcurl
+        if(!url) return
         Tool.getAbsolute(url,{},data=>{
           let obj = new Lyric(data,this.handleLyric)
           this.currentMusic.lrcObj = obj
@@ -315,6 +340,7 @@ export default {
       handleLyric(){},
       //关闭网页
       closePage(){
+        this.addMonitor('1005')
         window.location.href += '#closeWindow'
       },
       //上一首
@@ -337,6 +363,10 @@ export default {
           this.toggleMusic(this.musicList[0])
         }
         this.audio.currentTime = 0
+      },
+      //切换swipe
+      handleChange(index){
+        this.defaultIndex = index
       }
     }
 }
@@ -371,6 +401,11 @@ export default {
           top: 50%;
           transform: translateY(-50%);
       }
+      img.back-icon{
+        width: 0.38rem;
+        padding: 0 0.1rem;
+        margin-right: 0.1rem;
+      }
       .name{
         width: 70%;
         margin-left: 15%;
@@ -382,7 +417,7 @@ export default {
 }
 .content{
     width: 100%;
-    height: 75%;
+    // height: 75%;
     padding-top: .65rem;
     .logo-wrapper{
       width: 100%;
@@ -442,7 +477,7 @@ export default {
   z-index: -1;
 }
 
-.logo-box{
+.logo-box.active{
   -webkit-transition-property: -webkit-transform;
     -webkit-transition-duration: 1s;
     -moz-transition-property: -moz-transform;
@@ -464,4 +499,16 @@ export default {
 @keyframes rotate{from{transform: rotate(0deg)}
     to{transform: rotate(359deg)}
 }
+
+.progress-wrapper{
+  display: flex;
+  .time{
+    font-size: 0.28rem;
+    color: rgba(255, 255, 255, .5)
+  }
+  .progress-bar-wrapper{
+    margin: 0 .2rem;
+  }      
+}
+          
 </style>

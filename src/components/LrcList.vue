@@ -1,5 +1,5 @@
 <template>
-<div class="wrapper" v-if="lrcObj">
+<div class="wrapper" v-if="lrc && lrcObj && lrcObj.lines">
  <Scroll class="lyric-wrapper" ref="lyricList" :data="lrcObj && lrcObj.lines">
     <div class="lyric">
         <p v-for="(line,index) in lrcObj.lines" ref="lyricLine"
@@ -8,6 +8,8 @@
     </div>
  </Scroll>
 </div>
+<div class="message" v-else>暂无歌词</div>
+<!-- <div>{{lrc}}</div> -->
 </template>
 
 <script>
@@ -36,7 +38,7 @@ export default {
   data () {
     return {
       currentLineNum: 0,
-      scrollLine: 5,//默认多少行开始滚动
+      // scrollLine: 3,//默认多少行开始滚动
       lrcObj: '',//解析后的歌词对象
     }
   },
@@ -48,12 +50,14 @@ export default {
       this.setProgress(val)
     },
     lrc: function(val){
+      if(!val) return
       if(this.lrcObj){
         this.lrcObj.stop()
       }
       this.$nextTick(()=>{
         this.getLyric()
         this.togglePlaying()
+        this.currentLineNum = 0
       })
     }
   },
@@ -61,20 +65,17 @@ export default {
     lrcObj1: function(){
       if(this.lrc){
         let obj = new Lyric(this.lrc,this.handleLyric)
-        //处理每行歌词换行
-        // obj.lines.forEach(item=>{
-        //   let txt = item.txt;
-        //   let arr = txt.split('^');
-        //   let html = '';
-        //   arr.forEach(ele => {
-        //     html += `<span>${ele}</span>`
-        //   });
-        //   item.txt = html
-        // })
         return obj;
       }else{
         return ''
       }
+    },
+    //默认多少行开始滚动
+    scrollLine: function(){
+      let h1 = this.$refs.lyricList.$el.clientHeight
+      let h2 = this.$refs.lyricLine[0].clientHeight
+      let line = h1/h2;
+      return Math.floor(line/2)
     }
   },
   filters: {
@@ -93,8 +94,12 @@ export default {
           // 结合better-scroll，滚动歌词
           this.$refs.lyricList.scrollToElement(lineEl, 1000)
         } else {
-          this.$refs.lyricList.scrollToElement(0, 0, 1000)
+          // let lineEl = this.$refs.lyricLine[lineNum]
+          // this.$refs.lyricList.scrollToElement(0, 0, 1000)
+          let lineEl = this.$refs.lyricLine[lineNum]
+        this.$refs.lyricList.scrollToElement(lineEl, 1000)
         }
+        
     },
     togglePlaying: function(){
       if(this.playing){
@@ -131,5 +136,11 @@ export default {
       color: rgba(255, 255, 255, 0.64);
     }
   }
+}
+.message{
+  font-size: .30rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  margin-top: 1.5rem;
 }
 </style>
