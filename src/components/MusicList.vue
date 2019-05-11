@@ -15,7 +15,7 @@
                     <div @click="selectItem(index,$event)" v-for="(item,index) in list"
                     :class="{'current':currentId===item.musicId}"
                      class="item" :key="index"  flex="dir:left cross:center">
-                        <img v-if="currentId===item.musicId" src="../image/icon1.png" />
+                        <Jump1 class="jumpicon" v-if="currentId===item.musicId" :playing="playing && showMusicList"></Jump1>
                         <span v-else>{{index+1}}.</span>
                         <span class="name">{{item.musicName}}</span>
                     </div>
@@ -30,9 +30,11 @@
 import { mapMutations, mapState } from "vuex";
 import store from '../store';
 import Scroll from "../components/Scroll"
+import Jump1 from "../components/Jump1"
 export default {
     components: {
-        Scroll
+        Scroll,
+        Jump1
     },
     props: {
         bgUrl: {
@@ -46,17 +48,20 @@ export default {
         currentId: {
             type: String,
             default: ''
-        }
+        },
+        playing: {
+            type: Boolean,
+            default: false
+        },
     },
     data(){
         return {
-
         }
     },
     computed: {
         ...mapState({
             // countList: ({maintainitem}) => maintainitem.countList,
-            // showMusicList: ({common}) => common.showMusicList
+            showMusicList: ({common}) => common.showMusicList
         })
     },
     methods: {
@@ -129,7 +134,7 @@ export default {
     }
     .item.current{
         color: #51a5fd;
-        img{
+        .jumpicon{
             width: .36rem;
         }
         .name{

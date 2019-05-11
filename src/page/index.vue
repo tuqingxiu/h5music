@@ -27,6 +27,7 @@
         <div class="music">
             <audio ref="audio" class="dn" 
                 :src="currentMusic.musicUrl" :preload="audio.preload"
+                autoplay="autoplay"
                 @play="onPlay" 
                 @error="onError"
                 @waiting="onWaiting"
@@ -58,7 +59,9 @@
           position="right"
           class="music-list"
           >
-          <MusicList :bgUrl="bgUrl" :list="musicList" :currentId="currentMusic.musicId"></MusicList>
+          <MusicList :bgUrl="bgUrl" :list="musicList" 
+          :currentId="currentMusic.musicId" 
+          :playing="audio.playing"></MusicList>
         </mt-popup>
     </div>
 </template>
