@@ -1,5 +1,5 @@
 <template>
-    <img :src="icons[index]" />
+    <img :src="zans[index]" />
 </template>
 <script>
 import { mapMutations, mapState } from "vuex";
@@ -19,9 +19,10 @@ export default {
         }
     },
     mounted(){
-        if(this.playing){
-            this.setTimer()
-        }
+        // if(this.playing){
+        //     this.setTimer()
+        // }
+        this.setTimer()
     },
     destroyed(){
         if(this.timer){
@@ -30,24 +31,25 @@ export default {
     },
     watch: {
         playing: function(val){
-            if(this.playing){
-                this.setTimer()
-            }else{
-                this.clearTimer()
-            }
+            // if(this.playing){
+            //     this.setTimer()
+            // }else{
+            //     this.clearTimer()
+            // }
         }
     },
     methods: {
         setTimer: function(){
             this.clearTimer()
-            const self= this;
+            const self = this;
             this.timer = setInterval(()=>{
-                if(self.index===this.icons.length-1){
+                // console.log(self.index)
+                if(self.index===this.zans.length-1){
                     self.index = 0;
                 }else{
                     self.index++;
                 }
-            },300)
+            },150)
         },
         clearTimer: function(){
             if(this.timer){
@@ -57,7 +59,7 @@ export default {
     },
     computed: {
         ...mapState({
-            icons: ({imgs1}) => imgs1.icons
+            zans: ({imgs1}) => imgs1.zans
         })
     },
 }

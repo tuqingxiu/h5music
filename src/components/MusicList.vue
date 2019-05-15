@@ -1,6 +1,8 @@
 <template>
 <div class="list">
-    <div class="bg-blur" :style="`background-image:url(${bgUrl})`"></div>
+    <div class="bg-blur" :style="`background-image:url(${bgUrl})`">
+        <div class="bg-mask"></div>
+    </div>
     <div class="content">
         <div class="title" flex="dir:left cross:center">
             <img @click="goBack" src="../image/back.png" />
@@ -90,8 +92,14 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  filter: blur(20px);
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
   z-index: -1;
+  .bg-mask{
+    width:100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.56);
+  }
 }
 .list{
     width: 100%;

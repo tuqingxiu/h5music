@@ -7,7 +7,9 @@
            @touchmove.prevent = "progressTouchMove"
            @touchend = "progressTouchEnd"
       >
-        <div class="progress-btn"></div>
+        <!-- <div class="progress-btn"></div> -->
+        <img class="progress-btn" src="../image/progress.gif" />
+        <!-- <Zan class="progress-btn"></Zan> -->
       </div>
     </div>
   </div>
@@ -15,6 +17,9 @@
 <script>
   // 进度条按钮宽度,由于style中没有设置width,因此只能用clientWidth获取
   export default {
+    components: {
+      // Zan
+    },
     data() {
       return {
         btnWidth: {
@@ -118,14 +123,18 @@
         height: 0.5rem;
         .progress-btn{
           position: relative;
-          top: 0.12rem;
+          // top: 0.12rem;
           left: 0.12rem;
           box-sizing: border-box;
-          width: 0.32rem;
+          // width: 0.32rem;
           height: 0.32rem;
-          border: 0.06rem solid #51a5fd;
-          border-radius: 50%;
-          background: #51a5fd;
+          // border: 0.06rem solid #51a5fd;
+          // border-radius: 50%;
+          // background: #51a5fd;
+  //         background-image: url('../image/progress.gif');
+  //         background-position: center;
+  // background-repeat: no-repeat;
+  // background-size: cover;
         }
       }
         

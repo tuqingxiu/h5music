@@ -1,6 +1,8 @@
 <template>
     <div class="container" flex="dir:top main:center">
-        <div class="bg-blur" :style="`background-image:url(${bgUrl})`"></div>
+        <div class="bg-blur" :style="`background-image:url(${bgUrl})`">
+          <div class="bg-mask"></div>
+        </div>
         <div class="title">
             <img class="back-icon" v-if="defaultIndex === 1" @click="toggleSwipe(0,$event)" src="../image/back.png" />
             <img v-else @click="closePage" src="../image/close.png" />
@@ -44,7 +46,8 @@
                     <span class="time time-r">{{audio.maxTime|timeFilter}}</span>
                 </div>
                 <div class="btn-box" flex="main:justify cross:center">
-                  <img @click="addMonitor('1006',$event)" :src="zanicon" />
+                  <img class="zanimg" @click="addMonitor('1006',$event)" :src="zanicon" />
+                  <!-- <Zan class="zanimg" @click="addMonitor('1006',$event)"></Zan> -->
                   <div class="play-box" flex="main:justify cross:center">
                     <img @click="prev" src="../image/prev.png" />
                     <img class="play-btn" @click="togglePlaying" :src="playicon" />
@@ -80,18 +83,24 @@ import Lyric from 'lyric-parser';
 import LrcList from "../components/LrcList";
 import MusicList from "../components/MusicList";
 import ProgressBar from "../components/ProgressBar";
+import Zan from '../components/zan';//点赞前动图
 
 import pauseImg from "../image/pause.png";
 import playImg from "../image/play.png";
 import bgImg from "../image/bgImg.png";
-import zanImg from "../image/zan.png";
-import zanedImg from "../image/zaned.png";
+// import zanImg from "../image/zan.png";
+// import zanedImg from "../image/zaned.png";
+import zanImg from "../image/zan.gif?id=12";
+import zanedImg from "../image/zaned.gif?id=12";
 import logoImg from "../image/logo.png";
+
+
 export default {
     components: {
       LrcList,
       MusicList,
-      ProgressBar
+      ProgressBar,
+      Zan
     },
     data() {
         return {
@@ -151,7 +160,7 @@ export default {
       //监听当前播放时间，判断当前歌曲是否播放完毕
       currentTime(val){
         if(val/1000 >= this.audio.maxTime-1){
-          this.next()
+          this.next('auto')
         }
       }
     },
@@ -168,6 +177,7 @@ export default {
       }),
       logoUrl: function(){
         return this.currentMusic.coverUrl || logoImg
+        // return this.currentMusic.coverUrl
       },
       currentTime: function(){
         return this.audio.currentTime*1000
@@ -188,7 +198,8 @@ export default {
       },
       bgUrl: function(){
         let list = this.backGroundList[0]
-        return list&&list.fileUrl||bgImg
+        // return list&&list.fileUrl||bgImg
+        return list&&list.fileUrl
       },
       //当前歌曲下标，第几首
       currentIndex: function(){
@@ -356,9 +367,14 @@ export default {
           this.toggleMusic(this.musicList[lastIndex])
         }
       },
-      //下一首
-      next(){
-        this.addMonitor('1003')
+      //下一首type:auto自动播放下一首
+      next(type){
+        if(type === 'auto'){
+          this.addMonitor('1002')
+        }else{
+          this.addMonitor('1003')
+        }
+        
         let lastIndex = this.musicList.length-1;
         if(this.currentIndex<lastIndex){
           this.toggleMusic(this.musicList[this.currentIndex+1])
@@ -386,7 +402,7 @@ export default {
 }
 .container{
     overflow-x: hidden;
-    height: 100vh;
+    height: 100%;
     .title{
       position: absolute;
       width: 100%;
@@ -426,7 +442,7 @@ export default {
       width: 100%;
       height: 100%;
       .logo-box{
-        width: 3.04rem;
+        width: 3rem;
         height: 3rem;
         border: .02rem solid #51A5fd;
         padding: .1rem;
@@ -453,7 +469,7 @@ export default {
     width: 100%;
     .audio-box{
       .btn-box{
-        margin: 0.2rem 0 0.3rem;
+        // margin: 0.2rem 0 0.3rem;
         .play-box{
           width: 50%;
         }
@@ -462,6 +478,9 @@ export default {
         }
         img.play-btn{
           width: 0.62rem;
+        }
+        img.zanimg{
+          width: 1rem;
         }
       }
     }
@@ -476,19 +495,26 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  filter: blur(20px);
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
   z-index: -1;
+  background-color: #3f67a1;
+  .bg-mask{
+    width:100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.56);
+  }
 }
 
 .logo-box.active{
   -webkit-transition-property: -webkit-transform;
-    -webkit-transition-duration: 1s;
+    -webkit-transition-duration: 2s;
     -moz-transition-property: -moz-transform;
-    -moz-transition-duration: 1s;
-    -webkit-animation: rotate 3s linear infinite;
-    -moz-animation: rotate 3s linear infinite;
-    -o-animation: rotate 3s linear infinite;
-    animation: rotate 3s linear infinite;
+    -moz-transition-duration: 2s;
+    -webkit-animation: rotate 6s linear infinite;
+    -moz-animation: rotate 6s linear infinite;
+    -o-animation: rotate 6s linear infinite;
+    animation: rotate 6s linear infinite;
 }
 @-webkit-keyframes rotate{from{-webkit-transform: rotate(0deg)}
     to{-webkit-transform: rotate(360deg)}

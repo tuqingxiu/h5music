@@ -20,9 +20,15 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   /* max-width: 750px; */
   min-width: 320px;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   margin: auto;
-  position: relative;
+  /* position: relative; */
   font-size: 0.32rem;
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 }
 </style>
