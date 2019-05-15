@@ -245,6 +245,14 @@ export default {
       },
       //数据监听http://127.0.0.1:9089/baseController/addMonitor
       addMonitor(type){
+        let newTime = new Date().getTime();
+        //1s内同一个统计只统计一次，防止页面卡顿时，按钮重复统计
+        if(this.preStatisTime&&this.preStatisType===type&&(newTime-this.preStatisTime<1000)){
+          return;
+        }else{
+          this.preStatisType = type;
+          this.preStatisTime = newTime;
+        }
         
         let self = this
         if(type === '1006' && this.currentMusic.isZan){
@@ -525,10 +533,10 @@ export default {
     -webkit-transition-duration: 2s;
     -moz-transition-property: -moz-transform;
     -moz-transition-duration: 2s;
-    -webkit-animation: rotate 6s linear infinite;
-    -moz-animation: rotate 6s linear infinite;
-    -o-animation: rotate 6s linear infinite;
-    animation: rotate 6s linear infinite;
+    -webkit-animation: rotate 10s linear infinite;
+    -moz-animation: rotate 10s linear infinite;
+    -o-animation: rotate 10s linear infinite;
+    animation: rotate 10s linear infinite;
 }
 @-webkit-keyframes rotate{from{-webkit-transform: rotate(0deg)}
     to{-webkit-transform: rotate(360deg)}
