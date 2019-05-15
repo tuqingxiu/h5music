@@ -8,7 +8,7 @@
            @touchend = "progressTouchEnd"
       >
         <!-- <div class="progress-btn"></div> -->
-        <img class="progress-btn" src="../image/progress.gif" />
+        <img ref="progressBtn" class="progress-btn" src="../image/progress.gif" />
         <!-- <Zan class="progress-btn"></Zan> -->
       </div>
     </div>
@@ -38,7 +38,9 @@
       }
     },
     mounted() {
-      this.btnWidth = document.getElementsByClassName('progress-btn')[0].clientWidth
+      // this.btnWidth = document.getElementsByClassName('progress-btn')[0].clientWidth
+     
+      this.btnWidth = this.$refs.progressBtn.clientWidth
     },
     methods: {
       // 点击按钮
@@ -85,7 +87,8 @@
         // 设置进度长度随着百分比变化
         this.$refs.progress.style.width = `${offsetWidth}px`
         // 设置按钮随着百分比偏移
-        this.$refs.progressBtn.style.transform = `translate3d(${offsetWidth}px, 0, 0)`
+        // this.$refs.progressBtn.style.transform = `translate3d(${offsetWidth}px, 0, 0)`
+        this.$refs.progressBtn.style.webkitTransform = `translate3d(${offsetWidth}px, 0, 0)`
       }
     },
     watch: {

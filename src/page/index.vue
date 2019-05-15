@@ -159,7 +159,7 @@ export default {
       },
       //监听当前播放时间，判断当前歌曲是否播放完毕
       currentTime(val){
-        if(val/1000 >= this.audio.maxTime-1){
+        if(val/1000 === this.audio.maxTime){
           this.next('auto')
         }
       }
@@ -245,6 +245,7 @@ export default {
       },
       //数据监听http://127.0.0.1:9089/baseController/addMonitor
       addMonitor(type){
+        
         let self = this
         if(type === '1006' && this.currentMusic.isZan){
           console.log('已经点赞了')
@@ -258,13 +259,19 @@ export default {
           "musicName": this.currentMusic.musicName,
           "playTime": this.audio.currentTime
         }
+        if(data.playTime > this.audio.maxTime){
+          data.playTime = this.audio.maxTime;
+        }
+        
+        console.log('code='+data.monitorCode+',name='+data.musicName
+        +',time='+data.playTime+',allTimge='+this.audio.maxTime)
         Tool.post('addMonitor',JSON.stringify(data),data=>{
           if(data === 'ok' && type === '1006'){
             //点赞成功
             self.musicList[self.currentIndex].isZan = true
             self.currentMusic.isZan = true;
           }
-          console.log(type+data)
+          // console.log(type+data)
         })
       },
       //显示列表
@@ -319,8 +326,7 @@ export default {
         // if(!this.controlList.onlyOnePlaying){
         //   return 
         // }
-
-        let target = res.target
+        let target = res.target || res.currentTarget
 
         let audios = document.getElementsByTagName('audio');
 
@@ -332,14 +338,14 @@ export default {
       },
       // 当timeupdate事件大概每秒一次，用来更新音频流的当前播放时间
       onTimeupdate(res) {
-        this.audio.currentTime = res.target.currentTime
+        this.audio.currentTime = res.target ? res.target.currentTime : res.currentTarget.currentTime
         this.sliderTime = parseInt(this.audio.currentTime / this.audio.maxTime * 100)
       },
       // 当加载语音流元数据完成后，会触发该事件的回调函数
       // 语音元数据主要是语音的长度之类的数据
       onLoadedmetadata(res) {
         this.audio.waiting = false;
-        this.audio.maxTime = parseInt(res.target.duration);
+        this.audio.maxTime = parseInt(res.target ? res.target.duration : res.currentTarget.duration);
         this.$emit("loading-true",11);
       },
       getLyric(){
@@ -354,8 +360,11 @@ export default {
       handleLyric(){},
       //关闭网页
       closePage(){
-        this.addMonitor('1005')
-        window.location.href += '#closeWindow'
+        let href = window.location.href;
+        if(href.indexOf('#closeWindow') < 0){
+          this.addMonitor('1005')
+          window.location.href += '#closeWindow'
+        }
       },
       //上一首
       prev(){
@@ -416,9 +425,10 @@ export default {
           padding:0 .1rem;
           margin-right: .1rem;
           position: absolute;
-          left: .35rem;
+          left: 1.5rem;
           top: 50%;
           transform: translateY(-50%);
+          -webkit-transform: translateY(-50%);
       }
       img.back-icon{
         width: 0.38rem;
@@ -426,8 +436,9 @@ export default {
         margin-right: 0.1rem;
       }
       .name{
-        width: 70%;
-        margin-left: 15%;
+        width: 60%;
+        margin-left: 20%;
+        padding-left: .5rem;
         overflow: hidden;
         text-overflow:ellipsis;
         white-space: nowrap;
@@ -490,6 +501,9 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
   background-position: center;

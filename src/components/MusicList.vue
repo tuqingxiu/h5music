@@ -87,6 +87,9 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
   background-position: center;
@@ -95,6 +98,7 @@ export default {
   -webkit-filter: blur(5px);
   filter: blur(5px);
   z-index: -1;
+  background-color: #3f67a1;
   .bg-mask{
     width:100%;
     height: 100%;
@@ -114,6 +118,7 @@ export default {
     position: absolute;
     width: 100%;
     top: 0;
+    left: 1.5rem;
     margin: .25rem 0;
     font-size: .34rem;
     img{
