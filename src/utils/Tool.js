@@ -10,8 +10,8 @@ const Tool = {};
 // const target = process.env.API + 'opact/';
 // const target = process.env.API + 'baseController/';
 // console.log(target)
-const target = 'https://incallapi.changan.com.cn/opact/';
-// const target = process.env.API;
+// const target = 'https://incallapi.changan.com.cn/opact/';
+const target = process.env.API;
 
 const CLOSE_NETWORK = false; //在本地调试时关闭网络，只调整静态页面
 var requestPool = []; //请求池

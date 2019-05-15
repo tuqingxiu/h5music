@@ -6,6 +6,7 @@ import router from './router'
 import store from "./store";
 import MintUI from "mint-ui";
 import moment from "moment";
+import 'babel-polyfill';
 import 'mint-ui/lib/style.css';
 import 'flex.css';
 import './style/normalize.css';
