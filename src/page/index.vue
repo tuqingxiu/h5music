@@ -5,7 +5,7 @@
         </div>
         <div class="title">
             <img class="back-icon" v-if="defaultIndex === 1" @click="toggleSwipe(0,$event)" src="../image/back.png" />
-            <img v-else @click="closePage" src="../image/close.png" />
+            <!-- <img v-else @click="closePage" src="../image/close.png" /> -->
             <div class="name">{{currentMusic.musicName}}</div>
         </div>
         <div class="content" flex-box="1">
@@ -246,12 +246,15 @@ export default {
       //数据监听http://127.0.0.1:9089/baseController/addMonitor
       addMonitor(type){
         let newTime = new Date().getTime();
-        //1s内同一个统计只统计一次，防止页面卡顿时，按钮重复统计
-        if(this.preStatisTime&&this.preStatisType===type&&(newTime-this.preStatisTime<1000)){
+        //1s内同一个统计，同一首歌曲，只统计一次，防止页面卡顿时，按钮重复统计
+        if(this.preStatisTime&&this.preStatisType===type
+        &&(newTime-this.preStatisTime<1000)
+        &&this.preStatisName&&this.currentMusic.musicName){
           return;
         }else{
           this.preStatisType = type;
           this.preStatisTime = newTime;
+          this.preStatisName = this.currentMusic.musicName;
         }
         
         let self = this
@@ -371,7 +374,14 @@ export default {
         let href = window.location.href;
         if(href.indexOf('#closeWindow') < 0){
           this.addMonitor('1005')
-          window.location.href += '#closeWindow'
+          let newHref = href;
+          if(href.indexOf('/#/')>0){
+            let href1 = href.replace('/#/','/');
+            newHref = href1 + '#closeWindow';
+          }else{
+            newHref = href + '#closeWindow';
+          }
+          window.location.href = newHref;
         }
       },
       //上一首
@@ -446,7 +456,7 @@ export default {
       .name{
         width: 60%;
         margin-left: 20%;
-        padding-left: .5rem;
+        // padding-left: .5rem;
         overflow: hidden;
         text-overflow:ellipsis;
         white-space: nowrap;
