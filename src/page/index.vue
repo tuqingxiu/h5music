@@ -140,6 +140,9 @@ export default {
       showMusicList(val){
         this.popupVisible = val
       },
+      popupVisible(val){
+        this.setVisible(val);
+      },
       //选中的歌曲,歌曲变化时
       selectMusic(val){
         Object.assign(this.currentMusic,{
