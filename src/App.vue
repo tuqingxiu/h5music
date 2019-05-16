@@ -15,6 +15,7 @@ export default {
 </script>
 <style>
 #app {
+  -webkit-overflow-scrolling: touch;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -24,7 +25,6 @@ export default {
   margin: auto;
   /* position: relative; */
   font-size: 0.32rem;
-
     position: absolute;
     width: 100%;
     height: 100%;

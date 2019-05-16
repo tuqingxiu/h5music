@@ -5,11 +5,12 @@ import App from './App'
 import router from './router'
 import store from "./store";
 import MintUI from "mint-ui";
-import moment from "moment";
+import FastClick from 'fastclick';
 import 'babel-polyfill';
 import 'mint-ui/lib/style.css';
 import 'flex.css';
 import './style/normalize.css';
+FastClick.attach(document.body);
 Vue.use(MintUI);
 
 Vue.config.productionTip = false
