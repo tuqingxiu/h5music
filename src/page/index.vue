@@ -9,7 +9,7 @@
             <div class="name">{{currentMusic.musicName}}</div>
         </div>
         <div class="content" flex-box="1">
-            <mt-swipe :auto="0" ref="swipe" 
+            <!-- <mt-swipe :auto="0" ref="swipe" 
             :defaultIndex="defaultIndex" 
             @change="handleChange"
             :showIndicators="false">
@@ -24,7 +24,21 @@
                 <mt-swipe-item>
                   <LrcList :lrc="currentMusic.lrc" :playing="audio.playing" :currentTime="currentTime"></LrcList>
                 </mt-swipe-item>
-            </mt-swipe>
+            </mt-swipe> -->
+            <transition :name="mode">
+            <!-- <transition> -->
+              <div class="wrapper-box" v-if="defaultIndex===0">
+                <div class="logo-wrapper" flex="main:center cross:center">
+                    <div class="logo-box" :class="{'active': audio.playing}">
+                      <img class="logo" :src="logoUrl" :onerror="logoUrl" />
+                    </div>
+                  </div>
+                  <img class="lrc-icon" @click="toggleSwipe(1,$event)" src="../image/lrc.png" />
+              </div>
+              <div class="wrapper-box" v-else>
+                <LrcList :lrc="currentMusic.lrc" :playing="audio.playing" :currentTime="currentTime"></LrcList>
+              </div>
+            </transition>
         </div>
         <div class="music">
             <audio ref="audio" class="dn" 
@@ -104,10 +118,12 @@ export default {
     },
     data() {
         return {
+          mode: 'left',
           popupVisible: false,
           musicList: [],
           backGroundList: [],
           defaultIndex: 0,//swipe,默认页数
+          activeIndex: 0,//首页和歌词页面切换的下标
           audio: {
               currentTime: 0,
               maxTime: 0,
@@ -298,12 +314,14 @@ export default {
       toggleSwipe(type,e){
         if(type === 0){
           this.addMonitor('1010')
+          this.mode = 'left'
         }else{
           this.addMonitor('1009')
+          this.mode = 'right'
         }
         this.defaultIndex = type
-        let swipe = this.$refs.swipe
-        swipe.swipeItemCreated()
+        // let swipe = this.$refs.swipe
+        // swipe.swipeItemCreated()
       },
       //进度条
       setProgress(val){
@@ -470,6 +488,11 @@ export default {
     width: 100%;
     height: 75%;
     padding-top: .65rem;
+    .wrapper-box{
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
     .logo-wrapper{
       width: 100%;
       height: 100%;

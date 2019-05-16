@@ -141,6 +141,6 @@ export default {
   font-size: .30rem;
   color: rgba(255, 255, 255, 0.7);
   text-align: center;
-  margin-top: 1.5rem;
+  padding-top: 1.5rem;
 }
 </style>
