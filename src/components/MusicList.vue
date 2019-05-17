@@ -118,13 +118,13 @@ export default {
     position: absolute;
     width: 100%;
     top: 0;
-    left: 1.5rem;
+    left: 1.2rem;
     margin: .35rem 0;
     font-size: .34rem;
     img{
         width:0.38rem;
         padding:0 .1rem;
-        margin-right: .1rem;
+        margin-right: .2rem;
     }
 }
 .wrapper{

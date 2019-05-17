@@ -526,7 +526,7 @@ export default {
     width: 100%;
     .audio-box{
       .btn-box{
-        margin: .15rem 0 .20rem;
+        margin-bottom: 0.20rem;
         .play-box{
           width: 50%;
         }
@@ -538,6 +538,7 @@ export default {
         }
         img.zanimg{
           width: 1rem;
+          margin-left: -0.3rem;
         }
       }
     }
