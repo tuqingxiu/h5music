@@ -47,7 +47,7 @@ export default {
                 }else{
                     self.index++;
                 }
-            },300)
+            },100)
         },
         clearTimer: function(){
             if(this.timer){

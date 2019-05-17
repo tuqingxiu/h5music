@@ -88,10 +88,10 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  width: 110%;
+  height: 110%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -119,7 +119,7 @@ export default {
     width: 100%;
     top: 0;
     left: 1.5rem;
-    margin: .25rem 0;
+    margin: .35rem 0;
     font-size: .34rem;
     img{
         width:0.38rem;

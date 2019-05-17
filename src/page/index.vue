@@ -449,13 +449,14 @@ export default {
   height: 100%;
 }
 .container{
-    overflow-x: hidden;
+    position: relative;
+    overflow: hidden;
     height: 100%;
     .title{
       position: absolute;
       width: 100%;
       top: 0;
-      margin: .25rem 0 0 0;
+      margin: .35rem 0 0 0;
       font-size: .36rem;
       text-align: center;
       color: #fff;
@@ -487,7 +488,7 @@ export default {
 .content{
     width: 100%;
     height: 75%;
-    padding-top: .65rem;
+    padding-top: .75rem;
     .wrapper-box{
       width: 100%;
       height: 100%;
@@ -502,13 +503,14 @@ export default {
         border: .02rem solid #51A5fd;
         padding: .1rem;
         border-radius: 1.52rem;
-        background-color: rgba(81,165,253,.2);
+        // background-color: rgba(81,165,253,.2);
         .logo{
           width: 100%;
           height: 100%;
           border-radius: 1.5rem;
           border: .03rem solid #51A5fd;
-          box-shadow: #51A5fd;
+          -webkit-box-shadow: #000 0.02rem 0.08rem;
+          box-shadow: #000 0.02rem 0.08rem;
         }
       }
     }
@@ -516,7 +518,7 @@ export default {
       width: .40rem;
       position: absolute;
       right: .45rem;
-      bottom: .32rem;
+      bottom: .22rem;
     }
 }
 .music{
@@ -524,7 +526,7 @@ export default {
     width: 100%;
     .audio-box{
       .btn-box{
-        // margin: 0.2rem 0 0.3rem;
+        margin: .15rem 0 .20rem;
         .play-box{
           width: 50%;
         }
@@ -548,8 +550,8 @@ export default {
   -webkit-transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
+  width: 110%;
+  height: 110%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
