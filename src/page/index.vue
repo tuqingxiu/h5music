@@ -465,7 +465,7 @@ export default {
           padding:0 .1rem;
           margin-right: .1rem;
           position: absolute;
-          left: 1.5rem;
+          left: 1.2rem;
           top: 50%;
           transform: translateY(-50%);
           -webkit-transform: translateY(-50%);
@@ -529,6 +529,7 @@ export default {
         margin-bottom: 0.20rem;
         .play-box{
           width: 50%;
+          margin-left: -0.15rem;
         }
         img{
           width: 0.36rem;

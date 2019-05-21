@@ -109,7 +109,7 @@ export default {
     width: 100%;
     height: 100%;
     .content{
-        padding: 0 .2rem;
+        padding: 0 .45rem;
         color: #fff;
         height: 100%;
     }
