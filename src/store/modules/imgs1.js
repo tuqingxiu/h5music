@@ -17,63 +17,69 @@ import icon16 from '../../image/jump/16.png';
 import icon17 from '../../image/jump/17.png';
 import icon18 from '../../image/jump/18.png';
 import icon19 from '../../image/jump/19.png';
-//点赞前图组
-import zan1 from '../../image/zan/1_00059.png';
-import zan2 from '../../image/zan/1_00060.png';
-import zan3 from '../../image/zan/1_00061.png';
-import zan4 from '../../image/zan/1_00062.png';
-import zan5 from '../../image/zan/1_00063.png';
-import zan6 from '../../image/zan/1_00064.png';
-import zan7 from '../../image/zan/1_00065.png';
-import zan8 from '../../image/zan/1_00066.png';
-import zan9 from '../../image/zan/1_00067.png';
-import zan10 from '../../image/zan/1_00068.png';
-import zan11 from '../../image/zan/1_00069.png';
-import zan12 from '../../image/zan/1_00070.png';
-import zan13 from '../../image/zan/1_00071.png';
-import zan14 from '../../image/zan/1_00072.png';
-import zan15 from '../../image/zan/1_00073.png';
-import zan16 from '../../image/zan/1_00074.png';
-import zan17 from '../../image/zan/1_00075.png';
-import zan18 from '../../image/zan/1_00076.png';
-import zan19 from '../../image/zan/1_00077.png';
-import zan20 from '../../image/zan/1_00078.png';
-import zan21 from '../../image/zan/1_00079.png';
-import zan22 from '../../image/zan/1_00080.png';
-import zan23 from '../../image/zan/1_00081.png';
-import zan24 from '../../image/zan/1_00082.png';
-import zan25 from '../../image/zan/1_00083.png';
-import zan26 from '../../image/zan/1_00084.png';
-import zan27 from '../../image/zan/1_00085.png';
-import zan28 from '../../image/zan/1_00086.png';
-import zan29 from '../../image/zan/1_00087.png';
-import zan30 from '../../image/zan/1_00088.png';
-import zan31 from '../../image/zan/1_00089.png';
-import zan32 from '../../image/zan/1_00090.png';
-import zan33 from '../../image/zan/1_00091.png';
-import zan34 from '../../image/zan/1_00092.png';
-import zan35 from '../../image/zan/1_00093.png';
-import zan36 from '../../image/zan/1_00094.png';
-import zan37 from '../../image/zan/1_00095.png';
-import zan38 from '../../image/zan/1_00096.png';
-import zan39 from '../../image/zan/1_00097.png';
-import zan40 from '../../image/zan/1_00098.png';
-import zan41 from '../../image/zan/1_00097.png';
-import zan42 from '../../image/zan/1_00100.png';
+//首页大动图
+import img0 from '../../image/bigJump/0.png';
+import img1 from '../../image/bigJump/1.png';
+import img2 from '../../image/bigJump/2.png';
+import img3 from '../../image/bigJump/3.png';
+import img4 from '../../image/bigJump/4.png';
+import img5 from '../../image/bigJump/5.png';
+import img6 from '../../image/bigJump/6.png';
+import img7 from '../../image/bigJump/7.png';
+import img8 from '../../image/bigJump/8.png';
+import img9 from '../../image/bigJump/9.png';
+import img10 from '../../image/bigJump/10.png';
+import img11 from '../../image/bigJump/11.png';
+import img12 from '../../image/bigJump/12.png';
+import img13 from '../../image/bigJump/13.png';
+import img14 from '../../image/bigJump/14.png';
+import img15 from '../../image/bigJump/15.png';
+import img16 from '../../image/bigJump/16.png';
+import img17 from '../../image/bigJump/17.png';
+import img18 from '../../image/bigJump/18.png';
+import img19 from '../../image/bigJump/19.png';
+import img20 from '../../image/bigJump/20.png';
+import img21 from '../../image/bigJump/21.png';
+import img22 from '../../image/bigJump/22.png';
+import img23 from '../../image/bigJump/23.png';
+import img24 from '../../image/bigJump/24.png';
+import img25 from '../../image/bigJump/25.png';
+import img26 from '../../image/bigJump/26.png';
+import img27 from '../../image/bigJump/27.png';
+import img28 from '../../image/bigJump/28.png';
+import img29 from '../../image/bigJump/29.png';
+import img30 from '../../image/bigJump/30.png';
+import img31 from '../../image/bigJump/31.png';
+import img32 from '../../image/bigJump/32.png';
+import img33 from '../../image/bigJump/33.png';
+import img34 from '../../image/bigJump/34.png';
+import img35 from '../../image/bigJump/35.png';
+import img36 from '../../image/bigJump/36.png';
+import img37 from '../../image/bigJump/37.png';
+import img38 from '../../image/bigJump/38.png';
+import img39 from '../../image/bigJump/39.png';
+import img40 from '../../image/bigJump/40.png';
+import img41 from '../../image/bigJump/41.png';
+import img42 from '../../image/bigJump/42.png';
+import img43 from '../../image/bigJump/43.png';
+import img44 from '../../image/bigJump/44.png';
+import img45 from '../../image/bigJump/45.png';
+import img46 from '../../image/bigJump/46.png';
+import img47 from '../../image/bigJump/47.png';
+import img48 from '../../image/bigJump/48.png';
+import img49 from '../../image/bigJump/49.png';
+import img50 from '../../image/bigJump/50.png';
 /**
  * 各种状态管理
  */
 const state = {
     icons: [icon2,icon3,icon4,icon5,icon6,icon7,icon8,icon9,icon10,icon11,
         icon12,icon13,icon14,icon15,icon16,icon17,icon18,icon19],//音乐列表的图组
-    // zans: [zan1,zan2,zan3,zan4,zan5,zan6,zan7,zan8,zan9,zan10,
-    //     zan11,zan12,zan13,zan14,zan15,zan16,zan17,zan18,zan19,zan20,
-    //     zan21,zan22,zan23,zan24,zan25,zan26,zan27,zan28,zan29,zan30,
-    //     zan31,zan32,zan33,zan34,zan35,zan36,zan37,zan38,zan39,zan40,zan41,zan42]
-    zans: [zan2,zan4,zan6,zan8,zan10,
-        zan12,zan14,zan16,zan18,zan20,
-        zan22,zan24,zan26,zan28,zan30,
-        zan32,zan34,zan36,zan38,zan40,zan42]
+    imgs: [img0,img1,img2,img3,img4,img5,img6,img7,img8,img9,
+        img10,img11,img12,img13,img14,img15,img16,img17,img18,img19,
+        img20,img21,img22,img23,img24,img25,img26,img27,img28,img29,
+        img30,img31,img32,img33,img34,img35,img36,img37,img38,img39,
+        img40,img41,img42,img43,img44,img45,img46,img47,img48,img49,img50]
 };
 
 const mutations = {

@@ -29,7 +29,8 @@
             <!-- <transition> -->
               <div class="wrapper-box" v-if="defaultIndex===0">
                 <div class="logo-wrapper" flex="main:center cross:center">
-                    <div class="logo-box" :class="{'active': audio.playing}">
+                    <Jump1 class="bigJump" :playing="audio.playing" imgType="big"></Jump1>
+                    <div ref="logoBox" class="logo-box" :class="{'active': audio.playing}" >
                       <img class="logo" :src="logoUrl" :onerror="logoUrl" />
                     </div>
                   </div>
@@ -61,7 +62,6 @@
                 </div>
                 <div class="btn-box" flex="main:justify cross:center">
                   <img class="zanimg" @click="addMonitor('1006',$event)" :src="zanicon" />
-                  <!-- <Zan class="zanimg" @click="addMonitor('1006',$event)"></Zan> -->
                   <div class="play-box" flex="main:justify cross:center">
                     <img @click="prev" src="../image/prev.png" />
                     <img class="play-btn" @click="togglePlaying" :src="playicon" />
@@ -97,15 +97,15 @@ import Lyric from 'lyric-parser';
 import LrcList from "../components/LrcList";
 import MusicList from "../components/MusicList";
 import ProgressBar from "../components/ProgressBar";
-import Zan from '../components/zan';//点赞前动图
+import Jump1 from "../components/Jump1";
 
 import pauseImg from "../image/pause.png";
 import playImg from "../image/play.png";
 import bgImg from "../image/bgImg.png";
 // import zanImg from "../image/zan.png";
 // import zanedImg from "../image/zaned.png";
-import zanImg from "../image/zan.gif?id=12";
-import zanedImg from "../image/zaned.gif?id=12";
+import zanImg from "../image/zan.gif";
+import zanedImg from "../image/zaned.gif";
 import logoImg from "../image/logo.png";
 
 
@@ -114,7 +114,7 @@ export default {
       LrcList,
       MusicList,
       ProgressBar,
-      Zan
+      Jump1
     },
     data() {
         return {
@@ -238,20 +238,22 @@ export default {
       //获取歌曲列表
       this.getMusicList()
     },
+    mounted(){
+      //设置圆盘的高度
+      this.setLogoBoxStyle()
+    },
     methods: {
       ...mapMutations({
           setVisible: 'SHOW_MUSIC_LIST',//列表显示状态
           toggleMusic: 'SELECT_MUSIC',//切换歌曲
       }),
+      setLogoBoxStyle(){
+        let width = this.$refs.logoBox.offsetWidth
+        this.$refs.logoBox.style.height = `${width}px`
+      },
       //获取歌曲列表
       getMusicList(){
         let self = this;
-        // self.musicList = [{
-        //   musicName: '1212',//歌名
-        //   musicUrl: '',//歌曲链接
-        //   lrcurl: '',//歌词链接
-        //   coverUrl: ''//logo地址
-        // }]
         Tool.get('getMusicList',{},data=>{
           if(data.musicList){
             self.musicList = data.musicList
@@ -476,8 +478,8 @@ export default {
         margin-right: 0.1rem;
       }
       .name{
-        width: 60%;
-        margin-left: 20%;
+        width: 50%;
+        margin-left: 25%;
         // padding-left: .5rem;
         overflow: hidden;
         text-overflow:ellipsis;
@@ -494,20 +496,27 @@ export default {
       height: 100%;
       position: relative;
     }
+    .bigJump{
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      padding: 0 .1rem;
+    }
     .logo-wrapper{
       width: 100%;
       height: 100%;
       .logo-box{
-        width: 3rem;
-        height: 3rem;
+        width:45%;
+        // width: 3rem;
+        // height: 3rem;
         border: .02rem solid #51A5fd;
         padding: .1rem;
-        border-radius: 1.52rem;
+        border-radius: 3rem;
         // background-color: rgba(81,165,253,.2);
         .logo{
           width: 100%;
           height: 100%;
-          border-radius: 1.5rem;
+          border-radius: 3rem;
           border: .03rem solid #51A5fd;
           -webkit-box-shadow: #000 0.02rem 0.08rem;
           box-shadow: #000 0.02rem 0.08rem;
