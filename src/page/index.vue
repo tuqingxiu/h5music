@@ -314,14 +314,17 @@ export default {
       },
       //跳转到词页面,返回  0返回，1到词页面
       toggleSwipe(type,e){
+        this.defaultIndex = type
         if(type === 0){
           this.addMonitor('1010')
           this.mode = 'left'
+          setTimeout(()=>{
+            this.setLogoBoxStyle()
+          },0)
         }else{
           this.addMonitor('1009')
           this.mode = 'right'
         }
-        this.defaultIndex = type
         // let swipe = this.$refs.swipe
         // swipe.swipeItemCreated()
       },
@@ -501,8 +504,13 @@ export default {
       z-index: -1;
       width: 100%;
       padding: 0 .1rem;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
     }
     .logo-wrapper{
+      position: relative;
       width: 100%;
       height: 100%;
       .logo-box{
@@ -511,12 +519,12 @@ export default {
         // height: 3rem;
         border: .02rem solid #51A5fd;
         padding: .1rem;
-        border-radius: 3rem;
+        border-radius: 10rem;
         // background-color: rgba(81,165,253,.2);
         .logo{
           width: 100%;
           height: 100%;
-          border-radius: 3rem;
+          border-radius: 10rem;
           border: .03rem solid #51A5fd;
           -webkit-box-shadow: #000 0.02rem 0.08rem;
           box-shadow: #000 0.02rem 0.08rem;
@@ -538,7 +546,7 @@ export default {
         margin-bottom: 0.20rem;
         .play-box{
           width: 50%;
-          margin-left: -0.15rem;
+          margin-left: -0.3rem;
         }
         img{
           width: 0.36rem;
