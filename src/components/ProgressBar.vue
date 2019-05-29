@@ -38,9 +38,11 @@
       }
     },
     mounted() {
+      
       // this.btnWidth = document.getElementsByClassName('progress-btn')[0].clientWidth
-     
-      this.btnWidth = this.$refs.progressBtn.clientWidth
+    //  console.log(this.btnWidth)
+      // this.btnWidth = this.$refs.progressBtn.clientWidth
+      this.btnWidth = 0
     },
     methods: {
       // 点击按钮
@@ -120,24 +122,20 @@
       }
       .progress-btn-wrapper{
         position: absolute;
-        left: -0.25rem;
+        // left: -0.25rem;
+        left: -0.5rem;
         top: -0.25rem;
         width: 0.5rem;
         height: 0.5rem;
         .progress-btn{
           position: relative;
           // top: 0.12rem;
-          left: 0.12rem;
+          // left: 0.12rem;
+          left: 0.26rem;
           box-sizing: border-box;
           // width: 0.32rem;
-          height: 0.32rem;
-          // border: 0.06rem solid #51a5fd;
-          // border-radius: 50%;
-          // background: #51a5fd;
-  //         background-image: url('../image/progress.gif');
-  //         background-position: center;
-  // background-repeat: no-repeat;
-  // background-size: cover;
+          // height: 0.32rem;
+          width:0.24rem;
         }
       }
         

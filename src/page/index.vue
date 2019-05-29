@@ -176,9 +176,11 @@ export default {
           this.$refs.audio.play();
         })
       },
-      //监听当前播放时间，判断当前歌曲是否播放完毕
+      //监听当前播放时间，判断当前歌曲是否播放完毕,1s内只自动切换一次
       currentTime(val){
-        if(val/1000 === this.audio.maxTime){
+        // let newTime = new Date().getTime();
+        if(val/1000 >= this.audio.maxTime){
+          this.audio.currentTime = 0;
           this.next('auto')
         }
       }
