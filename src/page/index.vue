@@ -283,6 +283,8 @@ export default {
         let self = this
         if(type === '1006' && this.currentMusic.isZan){
           console.log('已经点赞了')
+          self.musicList[self.currentIndex].isZan = true
+          self.currentMusic.isZan = true;
           return
         }
         if(!this.currentMusic.musicId && type !=='1001'){
