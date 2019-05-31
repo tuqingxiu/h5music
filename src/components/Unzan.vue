@@ -1,11 +1,17 @@
 <template>
-    <img :src="zans[index]" />
+    <img :src="unzans[index]" @click="goZan" />
 </template>
 <script>
 import { mapMutations, mapState } from "vuex";
 import store from '../store';
 
 export default {
+    props: {
+        clickZan: {
+            type: Function,
+            default: ()=>{}
+        }
+    },
     data(){
         return{
             index: 0
@@ -20,16 +26,23 @@ export default {
         }
     },
     methods: {
+        goZan: function(){
+            this.clickZan('1006')
+        },
         setTimer: function(){
             this.clearTimer()
             const self = this;
             this.timer = setInterval(()=>{
-                if(self.index===this.zans.length-1){
+                if(self.index===this.unzans.length-1){
                     self.clearTimer();
+                    setTimeout(()=>{
+                        self.index = 0;
+                        self.setTimer();
+                    },3000)
                 }else{
                     self.index++;
                 }
-            },150)
+            },100)
         },
         clearTimer: function(){
             if(this.timer){
@@ -39,7 +52,7 @@ export default {
     },
     computed: {
         ...mapState({
-            zans: ({imgs1}) => imgs1.zans
+            unzans: ({imgs1}) => imgs1.unzans
         })
     },
 }

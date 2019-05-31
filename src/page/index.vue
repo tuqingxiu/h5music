@@ -45,8 +45,9 @@
                     <span class="time time-r">{{audio.maxTime|timeFilter}}</span>
                 </div>
                 <div class="btn-box" flex="main:justify cross:center">
-                  <Zan class="zanimg" v-if="currentMusic.isZan==='zaning'"></Zan>
-                  <img class="zanimg" v-else @click="addMonitor('1006',$event)" :src="zanicon" />
+                  <Unzan class="zanimg" v-if="!currentMusic.isZan" @click="addMonitor('1006',$event)" :clickZan="addMonitor"></Unzan>
+                  <Zan class="zanimg" v-else-if="currentMusic.isZan==='zaning'"></Zan>
+                  <img class="zanimg" v-else :src="zanicon" />
                   <div class="play-box" flex="main:justify cross:center">
                     <img @click="prev" src="../image/prev.png" />
                     <img class="play-btn" @click="togglePlaying" :src="playicon" />
@@ -84,6 +85,7 @@ import MusicList from "../components/MusicList";
 import ProgressBar from "../components/ProgressBar";
 import Jump1 from "../components/Jump1";
 import Zan from "../components/Zan";
+import Unzan from "../components/Unzan";
 
 import pauseImg from "../image/pause.png";
 import playImg from "../image/play.png";
@@ -101,7 +103,8 @@ export default {
       MusicList,
       ProgressBar,
       Jump1,
-      Zan
+      Zan,
+      Unzan
     },
     data() {
         return {

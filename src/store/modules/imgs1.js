@@ -104,6 +104,49 @@ import zan47 from '../../image/zaned/1_00047.png';
 import zan48 from '../../image/zaned/1_00048.png';
 import zan49 from '../../image/zaned/1_00049.png';
 import zan50 from '../../image/zaned/1_00050.png';
+//点赞前动画
+import unzan59 from '../../image/unzan/1_00059.png';
+import unzan60 from '../../image/unzan/1_00060.png';
+import unzan61 from '../../image/unzan/1_00061.png';
+import unzan62 from '../../image/unzan/1_00062.png';
+import unzan63 from '../../image/unzan/1_00063.png';
+import unzan64 from '../../image/unzan/1_00064.png';
+import unzan65 from '../../image/unzan/1_00065.png';
+import unzan66 from '../../image/unzan/1_00066.png';
+import unzan67 from '../../image/unzan/1_00067.png';
+import unzan68 from '../../image/unzan/1_00068.png';
+import unzan69 from '../../image/unzan/1_00069.png';
+import unzan70 from '../../image/unzan/1_00070.png';
+import unzan71 from '../../image/unzan/1_00071.png';
+import unzan72 from '../../image/unzan/1_00072.png';
+import unzan73 from '../../image/unzan/1_00073.png';
+import unzan74 from '../../image/unzan/1_00074.png';
+import unzan75 from '../../image/unzan/1_00075.png';
+import unzan76 from '../../image/unzan/1_00076.png';
+import unzan77 from '../../image/unzan/1_00077.png';
+import unzan78 from '../../image/unzan/1_00078.png';
+import unzan79 from '../../image/unzan/1_00079.png';
+import unzan80 from '../../image/unzan/1_00080.png';
+import unzan81 from '../../image/unzan/1_00081.png';
+import unzan82 from '../../image/unzan/1_00082.png';
+import unzan83 from '../../image/unzan/1_00083.png';
+import unzan84 from '../../image/unzan/1_00084.png';
+import unzan85 from '../../image/unzan/1_00085.png';
+import unzan86 from '../../image/unzan/1_00086.png';
+import unzan87 from '../../image/unzan/1_00087.png';
+import unzan88 from '../../image/unzan/1_00088.png';
+import unzan89 from '../../image/unzan/1_00089.png';
+import unzan90 from '../../image/unzan/1_00090.png';
+import unzan91 from '../../image/unzan/1_00091.png';
+import unzan92 from '../../image/unzan/1_00092.png';
+import unzan93 from '../../image/unzan/1_00093.png';
+import unzan94 from '../../image/unzan/1_00094.png';
+import unzan95 from '../../image/unzan/1_00095.png';
+import unzan96 from '../../image/unzan/1_00096.png';
+import unzan97 from '../../image/unzan/1_00097.png';
+import unzan98 from '../../image/unzan/1_00098.png';
+import unzan99 from '../../image/unzan/1_00099.png';
+import unzan100 from '../../image/unzan/1_00100.png';
 /**
  * 各种状态管理
  */
@@ -118,7 +161,12 @@ const state = {
     zans: [zan17,zan18,zan19,
         zan20,zan21,zan22,zan23,zan24,zan25,zan26,zan27,zan28,zan29,
         zan30,zan31,zan32,zan33,zan34,zan35,zan36,zan37,zan38,zan39,
-        zan40,zan41,zan42,zan43,zan44,zan45,zan46,zan47,zan48,zan49,zan50]
+        zan40,zan41,zan42,zan43,zan44,zan45,zan46,zan47,zan48,zan49,zan50],
+    unzans: [unzan59,
+        unzan60,unzan61,unzan62,unzan63,unzan64,unzan65,unzan66,unzan67,unzan68,unzan69,
+        unzan70,unzan71,unzan72,unzan73,unzan74,unzan75,unzan76,unzan77,unzan78,unzan79,
+        unzan80,unzan81,unzan82,unzan83,unzan84,unzan85,unzan86,unzan87,unzan88,unzan89,
+        unzan90,unzan91,unzan92,unzan93,unzan94,unzan95,unzan96,unzan97,unzan98,unzan99,unzan100]
 };
 
 const mutations = {
