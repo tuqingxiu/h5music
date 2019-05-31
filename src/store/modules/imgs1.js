@@ -69,6 +69,41 @@ import img47 from '../../image/bigJump/47.png';
 import img48 from '../../image/bigJump/48.png';
 import img49 from '../../image/bigJump/49.png';
 import img50 from '../../image/bigJump/50.png';
+//点赞图片
+import zan17 from '../../image/zaned/1_00017.png';
+import zan18 from '../../image/zaned/1_00018.png';
+import zan19 from '../../image/zaned/1_00019.png';
+import zan20 from '../../image/zaned/1_00020.png';
+import zan21 from '../../image/zaned/1_00021.png';
+import zan22 from '../../image/zaned/1_00022.png';
+import zan23 from '../../image/zaned/1_00023.png';
+import zan24 from '../../image/zaned/1_00024.png';
+import zan25 from '../../image/zaned/1_00025.png';
+import zan26 from '../../image/zaned/1_00026.png';
+import zan27 from '../../image/zaned/1_00027.png';
+import zan28 from '../../image/zaned/1_00028.png';
+import zan29 from '../../image/zaned/1_00029.png';
+import zan30 from '../../image/zaned/1_00030.png';
+import zan31 from '../../image/zaned/1_00031.png';
+import zan32 from '../../image/zaned/1_00032.png';
+import zan33 from '../../image/zaned/1_00033.png';
+import zan34 from '../../image/zaned/1_00034.png';
+import zan35 from '../../image/zaned/1_00035.png';
+import zan36 from '../../image/zaned/1_00036.png';
+import zan37 from '../../image/zaned/1_00037.png';
+import zan38 from '../../image/zaned/1_00038.png';
+import zan39 from '../../image/zaned/1_00039.png';
+import zan40 from '../../image/zaned/1_00040.png';
+import zan41 from '../../image/zaned/1_00041.png';
+import zan42 from '../../image/zaned/1_00042.png';
+import zan43 from '../../image/zaned/1_00043.png';
+import zan44 from '../../image/zaned/1_00044.png';
+import zan45 from '../../image/zaned/1_00045.png';
+import zan46 from '../../image/zaned/1_00046.png';
+import zan47 from '../../image/zaned/1_00047.png';
+import zan48 from '../../image/zaned/1_00048.png';
+import zan49 from '../../image/zaned/1_00049.png';
+import zan50 from '../../image/zaned/1_00050.png';
 /**
  * 各种状态管理
  */
@@ -79,7 +114,11 @@ const state = {
         img10,img11,img12,img13,img14,img15,img16,img17,img18,img19,
         img20,img21,img22,img23,img24,img25,img26,img27,img28,img29,
         img30,img31,img32,img33,img34,img35,img36,img37,img38,img39,
-        img40,img41,img42,img43,img44,img45,img46,img47,img48,img49,img50]
+        img40,img41,img42,img43,img44,img45,img46,img47,img48,img49,img50],
+    zans: [zan17,zan18,zan19,
+        zan20,zan21,zan22,zan23,zan24,zan25,zan26,zan27,zan28,zan29,
+        zan30,zan31,zan32,zan33,zan34,zan35,zan36,zan37,zan38,zan39,
+        zan40,zan41,zan42,zan43,zan44,zan45,zan46,zan47,zan48,zan49,zan50]
 };
 
 const mutations = {

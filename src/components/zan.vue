@@ -45,7 +45,7 @@ export default {
             this.timer = setInterval(()=>{
                 // console.log(self.index)
                 if(self.index===this.zans.length-1){
-                    self.index = 0;
+                    self.clearTimer();
                 }else{
                     self.index++;
                 }

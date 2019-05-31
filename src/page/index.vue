@@ -9,22 +9,6 @@
             <div class="name">{{currentMusic.musicName}}</div>
         </div>
         <div class="content" flex-box="1">
-            <!-- <mt-swipe :auto="0" ref="swipe" 
-            :defaultIndex="defaultIndex" 
-            @change="handleChange"
-            :showIndicators="false">
-                <mt-swipe-item>
-                  <div class="logo-wrapper" flex="main:center cross:center">
-                    <div class="logo-box" :class="{'active': audio.playing}">
-                      <img class="logo" :src="logoUrl" :onerror="logoUrl" />
-                    </div>
-                  </div>
-                  <img class="lrc-icon" @click="toggleSwipe(1,$event)" src="../image/lrc.png" />
-                </mt-swipe-item>
-                <mt-swipe-item>
-                  <LrcList :lrc="currentMusic.lrc" :playing="audio.playing" :currentTime="currentTime"></LrcList>
-                </mt-swipe-item>
-            </mt-swipe> -->
             <transition :name="mode">
             <!-- <transition> -->
               <div class="wrapper-box" v-if="defaultIndex===0">
@@ -61,7 +45,8 @@
                     <span class="time time-r">{{audio.maxTime|timeFilter}}</span>
                 </div>
                 <div class="btn-box" flex="main:justify cross:center">
-                  <img class="zanimg" @click="addMonitor('1006',$event)" :src="zanicon" />
+                  <Zan class="zanimg" v-if="currentMusic.isZan==='zaning'"></Zan>
+                  <img class="zanimg" v-else @click="addMonitor('1006',$event)" :src="zanicon" />
                   <div class="play-box" flex="main:justify cross:center">
                     <img @click="prev" src="../image/prev.png" />
                     <img class="play-btn" @click="togglePlaying" :src="playicon" />
@@ -98,14 +83,15 @@ import LrcList from "../components/LrcList";
 import MusicList from "../components/MusicList";
 import ProgressBar from "../components/ProgressBar";
 import Jump1 from "../components/Jump1";
+import Zan from "../components/Zan";
 
 import pauseImg from "../image/pause.png";
 import playImg from "../image/play.png";
 import bgImg from "../image/bgImg.png";
-// import zanImg from "../image/zan.png";
-// import zanedImg from "../image/zaned.png";
-import zanImg from "../image/zan.gif";
-import zanedImg from "../image/zaned.gif";
+import zanImg from "../image/zaned/1_00017.png";
+import zanedImg from "../image/zaned/1_00050.png";
+// import zanImg from "../image/zan.gif";
+// import zanedImg from "../image/zaned.gif";
 import logoImg from "../image/logo.png";
 
 
@@ -114,7 +100,8 @@ export default {
       LrcList,
       MusicList,
       ProgressBar,
-      Jump1
+      Jump1,
+      Zan
     },
     data() {
         return {
@@ -283,8 +270,6 @@ export default {
         let self = this
         if(type === '1006' && this.currentMusic.isZan){
           console.log('已经点赞了')
-          self.musicList[self.currentIndex].isZan = true
-          self.currentMusic.isZan = true;
           return
         }
         if(!this.currentMusic.musicId && type !=='1001'){
@@ -304,8 +289,14 @@ export default {
         Tool.post('addMonitor',JSON.stringify(data),data=>{
           if(data === 'ok' && type === '1006'){
             //点赞成功
-            self.musicList[self.currentIndex].isZan = true
-            self.currentMusic.isZan = true;
+            //点赞动画中
+            self.musicList[self.currentIndex].isZan = 'zaning'
+            self.currentMusic.isZan = 'zaning';
+            setTimeout(()=>{
+              //动画结束
+              self.musicList[self.currentIndex].isZan = true
+              self.currentMusic.isZan = true;
+            },5100)
           }
           // console.log(type+data)
         })
