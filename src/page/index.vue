@@ -286,6 +286,10 @@ export default {
         if(data.playTime > this.audio.maxTime){
           data.playTime = this.audio.maxTime;
         }
+        //完整播放时
+        if(type === '1002'){
+          data.playTime = this.audio.maxTime;
+        }
         
         console.log('code='+data.monitorCode+',name='+data.musicName
         +',time='+data.playTime+',allTimge='+this.audio.maxTime)
