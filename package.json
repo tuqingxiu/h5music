@@ -20,7 +20,7 @@
     "less-loader": "^5.0.0",
     "lyric-parser": "^1.0.1",
     "mint-ui": "^2.2.13",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "vue": "^2.5.2",
     "vue-aplayer": "^1.6.1",
     "vue-router": "^3.0.1",
